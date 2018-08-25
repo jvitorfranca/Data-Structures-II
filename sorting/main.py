@@ -3,6 +3,11 @@ import random
 import time
 import resource
 
+def how_to_use():
+    print('------------------------------------------------------')
+    print(' Example: python3 main.py -a insert -q 1000 -m random ')
+    print('------------------------------------------------------')
+
 def main(argv):
     #defining our initial time
     time.start = time.clock()
