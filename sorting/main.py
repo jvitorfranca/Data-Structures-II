@@ -1,8 +1,9 @@
 import sys
-import random
 import time
+import random
 import resource
 
+#an example of entry
 def how_to_use():
     print('------------------------------------------------------')
     print(' Example: python3 main.py -a insert -q 1000 -m random ')
@@ -25,16 +26,19 @@ def create_random_integers(my_list, elements, method):
     return my_list
 
 def main(argv):
-    #defining our initial time
+
+    #defining our reference of time
     time.start = time.clock()
 
+    #our principal list
     list = []
 
     list = create_random_integers(list, 100, 'descending')
 
-    #calculating the time used to process the algorithms
+    #calculating how long the algorithm worked
     time_elapsed = (time.clock() - time.start)
 
+    #outputs
     print(list)
     print("loading time: ", time_elapsed)
     print("resource used", resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
