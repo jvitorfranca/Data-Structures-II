@@ -1,26 +1,25 @@
 import sys
 import time
 import tools
-import random
+import numpy
 import resource
+import algorithms
 
 
 def main(argv):
 
-    #defining our reference of time
-    time.start = time.clock()
+    start_time = time.time()
 
-    #our principal list
     list = []
 
     list = tools.create_random_integers(list, 100, 'descending')
 
-    #calculating how long the algorithm worked
-    time_elapsed = (time.clock() - time.start)
+    arr = algorithms.InsertSort(list)
 
-    #outputs
-    print(list)
-    print("loading time: ", time_elapsed)
+    execution_time = time.time() - start_time
+
+    print(arr)
+    print("loading time: ", execution_time)
     print("resource used", resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
 
 if __name__ == "__main__":

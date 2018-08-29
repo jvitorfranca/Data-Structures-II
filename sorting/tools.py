@@ -1,13 +1,13 @@
 import random
 
 
-#an example of entry
 def how_to_use():
+
     print('------------------------------------------------------')
     print(' Example: python3 main.py -a insert -q 1000 -m random ')
     print('------------------------------------------------------')
 
-#generating random numbers without repeats
+
 def create_random_integers(my_list, elements, method):
 
     if method == 'random':
