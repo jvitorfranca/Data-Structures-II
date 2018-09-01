@@ -8,7 +8,7 @@ def main(argv):
 
     list = []
 
-    list = tools.create_random_integers(list, 100, 'descending')
+    list = tools.create_random_integers(list, 100, 'random')
 
     sort = Algorithms(list)
 

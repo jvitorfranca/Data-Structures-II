@@ -2,6 +2,7 @@ import tools
 import time
 import numpy as np
 
+
 class Algorithms():
     execution_time = -1
 
