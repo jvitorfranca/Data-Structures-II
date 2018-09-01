@@ -45,3 +45,28 @@ class Algorithms():
         self.execution_time = time.time() - start_time
 
         return arr, self.execution_time
+
+    def CountingSort(self):
+
+        start_time = time.time()
+
+        arr = np.array(self.list, dtype=int)
+
+        print(arr)
+
+        max = arr.max() + 1
+
+        count = [0] * max
+
+        for j in arr:
+            count[j] += 1
+
+        i = 0
+        for j in range(max):
+            for k in range(count[j]):
+                arr[i] = j
+                i += 1
+
+        self.execution_time = time.time() - start_time
+
+        return arr, self.execution_time
