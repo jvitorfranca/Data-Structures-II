@@ -1,7 +1,7 @@
 import sys
 import time
 import tools
-import algorithms
+from algorithms import Algorithms
 
 
 def main(argv):
@@ -12,7 +12,11 @@ def main(argv):
 
     list = tools.create_random_integers(list, 100, 'descending')
 
-    arr = algorithms.InsertSort(list)
+    sort = Algorithms(list)
+
+    arr = sort.InsertSort()
+
+    #arr = algorithms.InsertSort(list)
 
     execution_time = time.time() - start_time
 
