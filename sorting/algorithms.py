@@ -71,3 +71,40 @@ class Algorithms():
         self.execution_time = time.time() - start_time
 
         return arr, self.execution_time
+
+    def RadixSort(self):
+
+        start_time = time.time()
+
+        arr = np.array(self.list, dtype=int)
+
+        buckets = [[],[],[],[],[],[],[],[],[],[]]
+
+        RADIX = 10
+
+        maxLength = False
+
+        tmp, placement = -1, 1
+
+        while not maxLength:
+            maxLength = True
+            buckets = np.array(buckets, dtype=list)
+
+            for i in arr:
+                tmp = i / placement
+                buckets[int(tmp % RADIX)] = i
+                if maxLength and tmp > 0:
+                    maxLength = False
+
+            a = 0
+            for b in range(RADIX):
+                buck = buckets[b]
+                for i in buck:
+                    arr[a] = i
+                    a += 1
+
+            placement *= RADIX
+
+        self.execution_time = time.time() - start_time
+
+        return arr, self.execution_time
