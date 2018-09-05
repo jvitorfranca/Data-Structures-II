@@ -8,7 +8,7 @@ def main(argv):
 
     list = []
 
-    list = tools.create_random_integers(list, 10000, 'descending')
+    list = tools.create_random_integers(list, 100, 'descending')
 
     sort = Algorithms(list)
 
@@ -31,6 +31,11 @@ def main(argv):
 
     print(arr)
     print("execution time (Radix): ", "%.5f" % execution_time)
+
+    arr, execution_time = sort.ShellSort()
+
+    print(arr)
+    print("execution time (Shell): ", "%.5f" % execution_time)
 
 if __name__ == "__main__":
     main(sys.argv)

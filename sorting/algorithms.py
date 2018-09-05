@@ -90,7 +90,7 @@ class Algorithms():
             buckets = [list() for _ in range( RADIX )]
 
             # split aList between lists
-            for  i in arr:
+            for i in arr:
                 tmp = i / placement
                 buckets[int(tmp % RADIX)].append(i)
                 if maxLength and tmp > 0:
@@ -106,6 +106,35 @@ class Algorithms():
 
             # move to next digit
             placement *= RADIX
+
+        self.execution_time = time.time() - start_time
+
+        return arr, self.execution_time
+
+    def ShellSort(self):
+
+        start_time = time.time()
+
+        arr = np.array(self.list, dtype=int)
+
+        print(arr)
+
+        n = arr.size
+
+        gap = n/2
+
+        while gap > 0:
+            gap = int(gap)
+            for i in range(gap, n):
+                temp = arr[i]
+                j = i
+                while j >= gap and arr[j-gap] > temp:
+                    arr[j] = arr[j-gap]
+                    j -= gap
+
+                arr[j] = temp
+
+            gap /= 2
 
         self.execution_time = time.time() - start_time
 
