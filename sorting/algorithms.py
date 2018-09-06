@@ -82,12 +82,17 @@ class Algorithms():
 
         arr = np.array(self.list, dtype=int)
 
+        bucket = [list() for _ in range( RADIX )]
+
         print(arr)
 
         while not maxLength:
             maxLength = True
             # declare and initialize buckets
-            buckets = [list() for _ in range( RADIX )]
+            buckets = np.empty(RADIX, dtype=np.object)
+
+            for i in range(RADIX):
+                buckets[i] = []
 
             # split aList between lists
             for i in arr:
