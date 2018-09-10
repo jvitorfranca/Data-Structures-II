@@ -144,3 +144,43 @@ class Algorithms():
         self.execution_time = time.time() - start_time
 
         return arr, self.execution_time
+
+    #arr = np.array(self.list, dtype=int)
+
+    def MergeSort(self, arr):
+
+        start_time = time.time()
+
+        if len(arr)>1:
+            mid = len(arr)//2
+            left_half = arr[:mid]
+            right_half = arr[mid:]
+
+            self.MergeSort(left_half)
+            self.MergeSort(right_half)
+
+            i=0
+            j=0
+            k=0
+            while i < len(left_half) and j < len(right_half):
+                if left_half[i] < right_half[j]:
+                    arr[k]=left_half[i]
+                    i=i+1
+                else:
+                    arr[k]=right_half[j]
+                    j=j+1
+                k=k+1
+
+            while i < len(left_half):
+                arr[k]=left_half[i]
+                i=i+1
+                k=k+1
+
+            while j < len(right_half):
+                arr[k]=right_half[j]
+                j=j+1
+                k=k+1
+
+        self.execution_time = time.time() - start_time
+
+        return arr, self.execution_time

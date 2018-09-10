@@ -1,6 +1,7 @@
 import sys
 import time
 import tools
+import numpy as np
 from algorithms import Algorithms
 
 
@@ -11,7 +12,7 @@ def main(argv):
     list = tools.create_random_integers(list, 100, 'descending')
 
     sort = Algorithms(list)
-
+    '''
     arr, execution_time = sort.SelectionSort()
 
     print(arr)
@@ -33,6 +34,11 @@ def main(argv):
     print("execution time (Radix): ", "%.5f" % execution_time)
 
     arr, execution_time = sort.ShellSort()
+
+    print(arr)
+    print("execution time (Shell): ", "%.5f" % execution_time)
+    '''
+    arr, execution_time = sort.MergeSort(list)
 
     print(arr)
     print("execution time (Shell): ", "%.5f" % execution_time)
