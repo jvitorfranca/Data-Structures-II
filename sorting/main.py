@@ -9,10 +9,10 @@ def main(argv):
 
     list = []
 
-    list = tools.create_random_integers(list, 100, 'descending')
+    list = tools.create_random_integers(list, 10, 'random')
 
     sort = Algorithms(list)
-    '''
+
     arr, execution_time = sort.SelectionSort()
 
     print(arr)
@@ -37,11 +37,17 @@ def main(argv):
 
     print(arr)
     print("execution time (Shell): ", "%.5f" % execution_time)
-    '''
+
+    #array = np.array(list)
     arr, execution_time = sort.MergeSort(list)
 
     print(arr)
-    print("execution time (Shell): ", "%.5f" % execution_time)
+    print("execution time (Merge): ", "%.5f" % execution_time)
+
+    arr, execution_time = sort.HeapSort(list)
+
+    print(arr)
+    print("execution time (Heap): ", "%.5f" % execution_time)
 
 if __name__ == "__main__":
     main(sys.argv)
