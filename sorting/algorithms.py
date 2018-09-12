@@ -13,64 +13,63 @@ class Algorithms():
 
         start_time = time.time()
 
-        arr = np.array(self.list, dtype=int)
+        #arr = np.array(self.list, dtype=int)
 
-        print(arr)
-
-        for i in range(1, arr.size):
+        for i in range(1, len(self.list)):
             j = i
-            while j > 0 and arr[j-1] > arr[j]:
-                arr[j], arr[j-1] = arr[j-1], arr[j]
+            while j > 0 and self.list[j-1] > self.list[j]:
+                self.list[j], self.list[j-1] = self.list[j-1], self.list[j]
                 j -= 1
 
         self.execution_time = time.time() - start_time
 
-        return arr, self.execution_time
+        return self.list, self.execution_time
 
     def SelectionSort(self):
 
         start_time = time.time()
 
-        arr = np.array(self.list, dtype=int)
+        #arr = np.array(self.list, dtype=int)
 
-        print(arr)
-
-        for j in range(0, arr.size - 1):
+        for j in range(0, len(self.list) - 1):
             min = j
-            for i in range(j + 1, arr.size):
-                if arr[i] < arr[min]:
+            for i in range(j + 1, len(self.list)):
+                if self.list[i] < self.list[min]:
                     min = i
             if min != j:
-                arr[j], arr[min] = arr[min], arr[j]
+                self.list[j], self.list[min] = self.list[min], self.list[j]
 
         self.execution_time = time.time() - start_time
 
-        return arr, self.execution_time
+        return self.list, self.execution_time
 
     def CountingSort(self):
 
         start_time = time.time()
 
-        arr = np.array(self.list, dtype=int)
+        #arr = np.array(self.list, dtype=int)
 
-        print(arr)
+        max = 0
+        for i in range(0, len(self.list)):
+            if self.list[i] > max:
+                max = self.list[i]
 
-        max = arr.max() + 1
+        max = max + 1
 
         count = [0] * max
 
-        for j in arr:
+        for j in self.list:
             count[j] += 1
 
         i = 0
         for j in range(max):
             for k in range(count[j]):
-                arr[i] = j
+                self.list[i] = j
                 i += 1
 
         self.execution_time = time.time() - start_time
 
-        return arr, self.execution_time
+        return self.list, self.execution_time
 
     def RadixSort(self):
 
@@ -80,22 +79,18 @@ class Algorithms():
         maxLength = False
         tmp , placement = -1, 1
 
-        arr = np.array(self.list, dtype=int)
-
-        bucket = [list() for _ in range( RADIX )]
-
-        print(arr)
+        #arr = np.array(self.list, dtype=int)
 
         while not maxLength:
             maxLength = True
             # declare and initialize buckets
-            buckets = np.empty(RADIX, dtype=np.object)
+            buckets = [list() for _ in range( RADIX )]
 
-            for i in range(RADIX):
-                buckets[i] = []
+            #for i in range(RADIX):
+            #    buckets[i] = []
 
             # split aList between lists
-            for i in arr:
+            for i in self.list:
                 tmp = i / placement
                 buckets[int(tmp % RADIX)].append(i)
                 if maxLength and tmp > 0:
@@ -106,7 +101,7 @@ class Algorithms():
             for b in range( RADIX ):
                 buck = buckets[b]
                 for i in buck:
-                    arr[a] = i
+                    self.list[a] = i
                     a += 1
 
             # move to next digit
@@ -114,36 +109,34 @@ class Algorithms():
 
         self.execution_time = time.time() - start_time
 
-        return arr, self.execution_time
+        return self.list, self.execution_time
 
     def ShellSort(self):
 
         start_time = time.time()
 
-        arr = np.array(self.list, dtype=int)
+        #arr = np.array(self.list, dtype=int)
 
-        print(arr)
-
-        n = arr.size
+        n = len(self.list)
 
         gap = n/2
 
         while gap > 0:
             gap = int(gap)
             for i in range(gap, n):
-                temp = arr[i]
+                temp = self.list[i]
                 j = i
-                while j >= gap and arr[j-gap] > temp:
-                    arr[j] = arr[j-gap]
+                while j >= gap and self.list[j-gap] > temp:
+                    self.list[j] = self.list[j-gap]
                     j -= gap
 
-                arr[j] = temp
+                self.list[j] = temp
 
             gap /= 2
 
         self.execution_time = time.time() - start_time
 
-        return arr, self.execution_time
+        return self.list, self.execution_time
 
 
     def MergeSort(self, arr):
@@ -185,9 +178,9 @@ class Algorithms():
         return arr, self.execution_time
 
     def Heapify(self, arr, n, i):
-        largest = i # Initialize largest as root
-        l = 2 * i + 1     # left = 2*i + 1
-        r = 2 * i + 2     # right = 2*i + 2
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
 
         # See if left child of root exists and is
         # greater than root
@@ -213,7 +206,7 @@ class Algorithms():
 
         n = len(arr)
 
-        # Build a maxheap.
+        # maxheap.
         for i in range(n, -1, -1):
             self.Heapify(arr, n, i)
 
