@@ -1,7 +1,6 @@
 import sys
 import time
 import tools
-import numpy as np
 from algorithms import Algorithms
 
 
@@ -9,7 +8,7 @@ def main(argv):
 
     list = []
 
-    list = tools.create_random_integers(list, 10000, 'descending')
+    list = tools.create_random_integers(list, 100, 'descending')
 
     sort = Algorithms(list)
 
@@ -51,6 +50,6 @@ def main(argv):
 
     print(arr)
     print("execution time (Heap): ", "%.5f" % execution_time)
-
+    
 if __name__ == "__main__":
     main(sys.argv)
