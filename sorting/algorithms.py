@@ -217,3 +217,16 @@ class Algorithms():
         self.execution_time = time.time() - start_time
 
         return arr, self.execution_time
+
+    def QuickSort(self, arr, low, high):
+
+        start_time = time.time()
+
+        if low < high:
+
+            pi = partition(arr, low, high)
+
+            self.QuickSort(arr, low, pi)
+            self.QuickSort(arr, pi+1, high)
+
+        self.execution_time = time.time() - start_time
