@@ -9,6 +9,9 @@ class Algorithms():
     def __init__(self, list):
         self.list = list
 
+    def get_list(self):
+        print(self.list)
+
     def InsertSort(self):
 
         start_time = time.time()
