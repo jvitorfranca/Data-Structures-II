@@ -3,23 +3,24 @@ import time
 import random
 
 
+# Class with all the algorithms supported
 class Algorithms():
+
+    # The properties are basically execution time
+    # And a list of integers
     execution_time = -1
 
     def __init__(self, list):
         self.list = list
 
-    def get_list(self):
-        print(self.list)
-
     def InsertSort(self):
 
         start_time = time.time()
 
-        #arr = np.array(self.list, dtype=int)
-
+        # Walking through the list
         for i in range(1, len(self.list)):
             j = i
+            # Examine each item and compare it to items on its left
             while j > 0 and self.list[j-1] > self.list[j]:
                 self.list[j], self.list[j-1] = self.list[j-1], self.list[j]
                 j -= 1
@@ -32,8 +33,8 @@ class Algorithms():
 
         start_time = time.time()
 
-        #arr = np.array(self.list, dtype=int)
-
+        # During each iteration we'll select the smallest item
+        # From the unsorted partition and move it to the sorted partition
         for j in range(0, len(self.list) - 1):
             min = j
             for i in range(j + 1, len(self.list)):
@@ -50,8 +51,7 @@ class Algorithms():
 
         start_time = time.time()
 
-        #arr = np.array(self.list, dtype=int)
-
+        # Counting the number of objects having distinct key values
         max = 0
         for i in range(0, len(self.list)):
             if self.list[i] > max:
@@ -59,11 +59,14 @@ class Algorithms():
 
         max = max + 1
 
+        # Create a count array to store the count of each unique object
         count = [0] * max
 
         for j in self.list:
             count[j] += 1
 
+        # Count each element in the given array and place the count
+        # At the appropriate index
         i = 0
         for j in range(max):
             for k in range(count[j]):
@@ -82,24 +85,19 @@ class Algorithms():
         maxLength = False
         tmp , placement = -1, 1
 
-        #arr = np.array(self.list, dtype=int)
-
         while not maxLength:
             maxLength = True
-            # declare and initialize buckets
+            # Declare and initialize buckets
             buckets = [list() for _ in range( RADIX )]
 
-            #for i in range(RADIX):
-            #    buckets[i] = []
-
-            # split aList between lists
+            # Split aList between lists
             for i in self.list:
                 tmp = i / placement
                 buckets[int(tmp % RADIX)].append(i)
                 if maxLength and tmp > 0:
                     maxLength = False
 
-            # empty lists into aList array
+            # Empty lists into aList array
             a = 0
             for b in range( RADIX ):
                 buck = buckets[b]
@@ -107,7 +105,7 @@ class Algorithms():
                     self.list[a] = i
                     a += 1
 
-            # move to next digit
+            # Move to next digit
             placement *= RADIX
 
         self.execution_time = time.time() - start_time
@@ -118,12 +116,16 @@ class Algorithms():
 
         start_time = time.time()
 
-        #arr = np.array(self.list, dtype=int)
-
+        # We compare elements that are a distance apart rather
+        # Than adjacent
         n = len(self.list)
 
+        # We calculate "gap" for each pass, and then select the
+        # Elements towards the right gap
         gap = n/2
 
+        # One by one select elements to the right of the gap
+        # and place them at their appropriate position
         while gap > 0:
             gap = int(gap)
             for i in range(gap, n):
@@ -147,13 +149,19 @@ class Algorithms():
         start_time = time.time()
 
         if len(arr)>1:
+
+            # Divide the array in two parts initially
             mid = len(arr)//2
             left_half = arr[:mid]
             right_half = arr[mid:]
 
+            # Do the same recursively
             self.MergeSort(left_half)
             self.MergeSort(right_half)
 
+            # We divide the array in smaller portions and
+            # Compare with it's neighbors, after doing this,
+            # We "merge" by combining the small portions
             i=0
             j=0
             k=0

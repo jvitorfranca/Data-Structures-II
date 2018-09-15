@@ -2,6 +2,7 @@ import random
 import sys
 
 
+# Alert the user if he/she inserted a unexpected algorithm
 def error(algorithm):
     print(algorithm + ' is not valid.')
     print('Avaliable algorithms: ')
@@ -14,12 +15,14 @@ def error(algorithm):
     print('-CountSort')
     print('-RadixSort')
 
+# Teaches how to use the code
 def how_to_use():
 
     print('---------------------------------------------------------')
     print(' Example: python3 main.py -a InsertSort -s 100 -m random ')
     print('---------------------------------------------------------')
 
+# Generate a list with properties given
 def create_random_integers(my_list, elements, method):
 
     if elements > 0 and elements <= 1000000:

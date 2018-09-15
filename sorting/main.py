@@ -55,6 +55,7 @@ def main(argv):
 
     return args
 
+# Call the algorithms
 def run_algorithms(list, algorithm):
 
     # Creating a sort object
@@ -102,11 +103,15 @@ if __name__ == "__main__":
 
     size = int(size)
 
+    # Create the list with the method given
     list = []
 
     list = tools.create_random_integers(list, size, method)
 
+    # Returns of the algorithm
     arr, execution_time = run_algorithms(list, algorithm)
 
+
+    # Printing the results
     print(arr)
     print("execution time: ", "%5f" % execution_time)
