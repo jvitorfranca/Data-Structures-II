@@ -1,4 +1,4 @@
-import sys
+import argparse, sys
 import time
 import tools
 from algorithms import Algorithms
@@ -6,50 +6,31 @@ from algorithms import Algorithms
 
 def main(argv):
 
-    list = []
+    # Creating an argument parser
+    parser = argparse.ArgumentParser()
 
-    list = tools.create_random_integers(list, 100, 'descending')
+	# Arguments used in this project
+	parser.add_argument('-a', '--algorithm')
+	parser.add_argument('-s', '--size')
+	parser.add_argument('-m', '--method')
 
-    sort = Algorithms(list)
+    # Saving the arguments
+    args = parser.parse_args()
 
-    arr, execution_time = sort.SelectionSort()
+    if args.algorithm is None:
+        print('Choose a algorithm: ')
 
-    print(arr)
-    print("execution time (Selection): ", "%.5f" % execution_time)
+        print('-InsertSort')
+        print('-SelectionSort')
+        print('-ShellSort')
+        print('-QuickSort')
+        print('-MergeSort')
+        print('-HeapSort')
+        print('-CountSort')
+        print('-RadixSort')
 
-    arr, execution_time = sort.InsertSort()
+        tools.how_to_use()
+        sys.exit(2)
 
-    print(arr)
-    print("execution time (Insertion): ", "%.5f" % execution_time)
-
-
-    arr, execution_time = sort.CountingSort()
-
-    print(arr)
-    print("execution time (Counting): ", "%.5f" % execution_time)
-
-    arr, execution_time = sort.RadixSort()
-
-    print(arr)
-    print("execution time (Radix): ", "%.5f" % execution_time)
-
-    arr, execution_time = sort.ShellSort()
-
-    print(arr)
-    print("execution time (Shell): ", "%.5f" % execution_time)
-
-    #array = np.array(list)
-    arr, execution_time = sort.MergeSort(list)
-
-    print(arr)
-    print("execution time (Merge): ", "%.5f" % execution_time)
-
-    #array = np.array(list)
-
-    arr, execution_time = sort.HeapSort(list)
-
-    print(arr)
-    print("execution time (Heap): ", "%.5f" % execution_time)
-    
 if __name__ == "__main__":
     main(sys.argv)

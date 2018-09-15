@@ -1,5 +1,6 @@
 import tools
 import time
+import random
 
 
 class Algorithms():
@@ -24,7 +25,7 @@ class Algorithms():
 
         return self.list, self.execution_time
 
-    def SelectionSort(self):
+    def SelectSort(self):
 
         start_time = time.time()
 
@@ -42,7 +43,7 @@ class Algorithms():
 
         return self.list, self.execution_time
 
-    def CountingSort(self):
+    def CountSort(self):
 
         start_time = time.time()
 
@@ -218,15 +219,37 @@ class Algorithms():
 
         return arr, self.execution_time
 
+    def Partition(self, arr, low, high):
+        pivot = arr[high-1]
+        start = low
+        end = low
+        for i in range(low, high):
+            if arr[i] > pivot:
+                end += 1
+            else:
+                end += 1
+                start += 1
+                aux = arr[start-1]
+                arr[start-1] = arr[i]
+                arr[i] = aux
+        return start-1
+
     def QuickSort(self, arr, low, high):
 
         start_time = time.time()
 
         if low < high:
-
-            pi = partition(arr, low, high)
-
-            self.QuickSort(arr, low, pi)
-            self.QuickSort(arr, pi+1, high)
+            pivot_position = self.RandPartition(arr, low, high)
+            self.QuickSort(arr, low, pivot_position)
+            self.QuickSort(arr, pivot_position+1, high)
 
         self.execution_time = time.time() - start_time
+
+        return arr, self.execution_time
+
+    def RandPartition(self, arr, low, high):
+        rand = random.randrange(low, high)
+        aux = arr[high-1]
+        arr[high-1] = arr[rand]
+        arr[rand] = aux
+        return self.Partition(arr, low, high)
