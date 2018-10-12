@@ -2,8 +2,7 @@ BLACK = 'black'
 RED = 'red'
 
 class Node:
-    def __init__(self, value=None, left=None, right=None, parent=None,
-                 color=RED):
+    def __init__(self, value=None, left=None, right=None, parent=None, color=RED):
         self.value = value
         self.left = left
         self.right = right
