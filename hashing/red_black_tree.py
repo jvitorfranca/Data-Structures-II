@@ -1,161 +1,165 @@
-BLACK = 'BLACK'
-RED = 'RED'
+BLACK = 'black'
+RED = 'red'
 
-class RedBlackNode:
-	def __init__(self, value=None, color=None, parent=None, left=None, right=None):
-		self.value = value
-		self.color = color
-		self.parent = parent
-		self.left = left
-		self.right = right
+class Node:
+    def __init__(self, value=None, left=None, right=None, parent=None,
+                 color=RED):
+        self.value = value
+        self.left = left
+        self.right = right
+        self.parent = parent
+        self.color = color
 
-	def __str__(self):
-		return str(self.value) + str(self.color) + "\n"
+    def __str__(self):
+        return str(self.value) + str(self.color) + "\n"
 
+    
 class RedBlackTree:
-	def __init__(self, root=None):
-		self.__root = None
+    def __init__(self, root=None):
+        self.__root = None
+        
+    def BSTInsert(self, value, comp):
+        if self.__root is None:
+            self.__root = Node(value, color=BLACK)
+            return self.__root
+        else:
+            aux = self.__root
+            while aux is not None:
+                aux2 = aux
+                if comp(aux.value, value) != -1:
+                    aux = aux.left
+                else:
+                    aux = aux.right
+                    
+            if comp(aux2.value, value) != -1:
+                aux2.left = Node(value, parent=aux2)
+                return aux2.left
+            else:
+                aux2.right = Node(value, parent=aux2)
+                return aux2.right
+    
+    def fixInsertion(self, node):
+        parent_nd = None
+        grand_parent_nd = None
 
-	def BSTInsert(self, value, comp):
-		if self.__root is None:
-			self.__root = RedBlackNode(value, color=BLACK)
-			return self.__root
-		else: 
-			aux = self.__root
-			while aux is not None:
-				aux2 = aux
-				if comp(aux.value, value) != -1:
-					aux = aux.left
-				else:
-					aux = aux.right
+        while (node != self.__root) and (node.color is not BLACK) and (node.parent.color is RED):
+            parent_nd = node.parent
+            grand_parent_nd = parent_nd.parent
 
-			if comp(aux2.value, value) != -1:
-				aux2.left = RedBlackNode(value, parent=aux2)
-				return aux2.left
-			else:
-				aux2.right = RedBlackNode(value, parent=aux2)
-				return  aux2.right
+            if node.parent == grand_parent_nd.left:
+                uncle_nd = grand_parent_nd.right
 
-	def fixInsertion(self, node):
-		parend_nd = None
-		grand_parent_nd = None
+                if uncle_nd is not None and uncle_nd.color is RED:
+                    grand_parent_nd.color = RED
+                    parent_nd.color = BLACK
+                    uncle_nd.color = BLACK
+                    node = grand_parent_nd
+                else:
+                    if node == parent_nd.right:
+                        self.rotateLeft(parent_nd)
+                        node = parent_nd
+                        parent_nd = node.parent
 
-		while (node != self.__root) and (node.color is not BLACK) and (node.parent.color is RED):
-			parend_nd = node.parent
-			grand_parent_nd = parend_nd.parent
+                    self.rotateRight(grand_parent_nd)
+                    aux = parent_nd.color
+                    parent_nd.color = grand_parent_nd.color
+                    grand_parent_nd.color = aux
+                    node = parent_nd
+            else:
+                uncle_nd = grand_parent_nd.left
 
-			if node.parent == grand_parent_nd.left:
-				uncle_nd = grand_parent_nd.right
+                if uncle_nd is not None and uncle_nd.color is RED:
+                    grand_parent_nd.color = RED
+                    parent_nd.color = BLACK
+                    uncle_nd.color = BLACK
+                    node = grand_parent_nd
+                else:
+                    if node == parent_nd.left:
+                        self.rotateRight(parent_nd)
+                        node = parent_nd
+                        parent_nd = node.parent
 
-				if uncle_nd is not None and uncle_nd.color is RED:
-					grand_parent_nd.color = RED
-					parend_nd.color = BLACK
-					uncle_nd.color = BLACK
-					node = grand_parent_nd
-				else:
-					if node == parend_nd.right:
-						self.rotateLeft(parend_nd)
-						node = parend_nd
-						parend_nd = node.parent
+                    self.rotateLeft(grand_parent_nd)
+                    aux = parent_nd.color
+                    parent_nd.color = grand_parent_nd.color
+                    grand_parent_nd.color = aux
+                    node = parent_nd
 
-					self.rotateRight(grand_parent_nd)
-					aux = parent_nd.color
-					parend_nd.color = grand_parent_nd.color
-					grand_parent_nd.color = aux
-					node = parent_nd
+        self.__root.color = BLACK
+        
+    def rotateLeft(self, node):
+        nd_right = node.right
+        node.right = nd_right.left
 
-			else: 
-				uncle_nd = grand_parent_nd.left
+        if node.right is not None:
+            node.right.parent = node
 
-				if uncle_nd is not None and uncle_nd.color is RED:
-					grand_parent_nd.color = RED
-					parend_nd.color = BLACK
-					uncle_nd.color = BLACK
-					node = grand_parent_nd
-				else:
-					if node == parent_nd.left:
-						self.rotateRight(parent_nd)
-						node = parend_nd
-						parent_nd = node.parent_nd
+        nd_right.parent = node.parent
 
-					self.rotateLeft(grand_parent_nd)
-					aux = parent_nd.color
-					parend_nd.color = grand_parent_nd.color
-					grand_parent_nd.color = aux
-					node = parent_nd
+        if node.parent is None:
+            self.__root = nd_right
+        elif node == node.parent.left:
+            node.parent.left = nd_right
+        else:
+            node.parent.right = nd_right
 
-		self.__root.color = False
+        nd_right.left = node
+        node.parent = nd_right
 
-	def rotateLeft(self, node):
-		nd_right = node.right
-		node.right = nd_right.left
+    def rotateRight(self, node):
+        nd_left = node.left
+        node.left = nd_left.right
 
-		if node.right is not None:
-			node.right.parent = node
+        if node.left is not None:
+            node.left.parent = node
 
-		nd_right.parent = node.parent
+        nd_left.parent = node.parent
 
-		if node.parent is None:
-			self.__root = nd_right
-		elif node == node.parent.left:
-			node.parent.left = nd_right
-		else:
-			node.parent.right = nd_right
+        if node.parent is None:
+            self.__root = nd_left
+        elif node == node.parent.left:
+            node.parent.left = nd_left
+        else:
+            node.parent.right = nd_left
 
-		nd_right.left = node
-		node.parent = nd_right
+        nd_left.right = node
+        node.parent = nd_left
 
-	def rotateRight(self, node):
-		nd_left = node.left
-		node.left = nd_left.right
+    def insert(self, value, comp):
+        newnode = self.BSTInsert(value, comp)
 
-		if node.left is not None:
-			node.left.parent = node
+        self.fixInsertion(newnode)
 
-		nd_left.parent = node.parent
+    def __height(self, node):
+        if node is None:
+            return -1
+        hl = 0
+        hr = 0
+        hl = self.__height(node.left)
+        hr = self.__height(node.right)
+        if hl > hr:
+            return 1 + hl
+        else:
+            return 1 + hr
+        
+    def height(self):
+        return self.__height(self.__root)
 
-		if node.parent is None:
-			self.__root = nd_left
-		elif node == node.parent.left:
-			node.parent.left = nd_left
-		else:
-			node.parent.right = nd_left
+    def __preOrder(self, node):
+    	if node:
+    		print("%d -> %s" % (node.value, node.color))
+    		self.__preOrder(node.left)
+    		self.__preOrder(node.right)
 
-		nd_left.right = node
-		node.parent = nd_left
-
-	def insert(self, value, comp):
-		newnode = self.BSTInsert(value, comp)
-
-		self.fixInsertion(newnode)
-
-	def __height(self, node):
-		if node is None:
-			return -1
-		hl = 0
-		hr = 0
-		hl = self.__height(node.left)
-		hr = self.__height(node.right)
-		if hl > hr:
-			return 1 + hl
-		else:
-			return 1 + hr
-
-	def height(self):
-		return self.__height(self.__root)
-
-	def search(self, key, comp):
-		aux = self.__root
-		while aux is not None:
-			if comp(aux.value, key) == 0:
-				return aux.value
-			if comp(aux.value, key) == 1:
-				aux = aux.left
-			else:
-				aux = aux.right
-
-	def preOrder(self, node):
-		if node:
-			print(node.value)
-			preOrder(node.left)
-			preOrder(node.right)
+    def preOrder(self):
+    	return self.__preOrder(self.__root)
+        
+    def search(self, key, comp):
+        aux = self.__root
+        while aux is not None:
+            if comp(aux.value, key) == 0:
+                return aux.value, aux.color
+            if comp(aux.value, key) == 1:
+                aux = aux.left
+            else:
+                aux = aux.right
