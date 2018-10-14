@@ -1,28 +1,15 @@
-# Second implementation
-# Autor: jvitorfranca
-# Using hashing and red-black trees
-
+import sys
+import time
 import red_black_tree as rb
-import utilities as util
+import utilities as ut
 
-tree = rb.RedBlackTree()
 
-tree.insert(12, util.comp)
-tree.insert(15, util.comp)
-tree.insert(10, util.comp)
-tree.insert(11, util.comp)
-tree.insert(19, util.comp)
+def main(argv):
 
-num_files = int(input("Inform how much files you're going to submit: "))
-print(num_files)
+	words = ut.loadWords(argv[1:])
 
-files = []
+	tad = ut.loadRedBlackTree(words)
+	tad.invertedIndex()
 
-for i in range(num_files):
-	id_file = input("Insert file %d name: " % (i+1))
-	file = open(id_file, "r")
-	files.append(file.readline())
-	file.close()
-
-for j in files:
-	print(j)
+if __name__ == "__main__":
+	main(sys.argv)

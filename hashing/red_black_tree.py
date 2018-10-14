@@ -10,7 +10,7 @@ class Node:
         self.color = color
 
     def __str__(self):
-        return str(self.value) + str(self.color) + "\n"
+        return str(self.value.getVal()) + str(self.color) + "\n"
 
     
 class RedBlackTree:
@@ -25,12 +25,12 @@ class RedBlackTree:
             aux = self.__root
             while aux is not None:
                 aux2 = aux
-                if comp(aux.value, value) != -1:
+                if comp(aux.value.getVal(), value.getVal()) != -1:
                     aux = aux.left
                 else:
                     aux = aux.right
                     
-            if comp(aux2.value, value) != -1:
+            if comp(aux2.value.getVal(), value.getVal()) != -1:
                 aux2.left = Node(value, parent=aux2)
                 return aux2.left
             else:
@@ -156,9 +156,22 @@ class RedBlackTree:
     def search(self, key, comp):
         aux = self.__root
         while aux is not None:
-            if comp(aux.value, key) == 0:
+            if comp(aux.value.getVal(), key) == 0:
                 return aux.value, aux.color
-            if comp(aux.value, key) == 1:
+            if comp(aux.value.getVal(), key) == 1:
                 aux = aux.left
             else:
                 aux = aux.right
+
+    def __invertedIndex(self, node):
+        if node is None:
+            return
+        self.__invertedIndex(node.left)
+        print(node.value)
+        self.__invertedIndex(node.right)
+
+    def invertedIndex(self):
+        if self.__root is None:
+            print("Árvore Vazia")
+            return None
+        self.__invertedIndex(self.__root)
