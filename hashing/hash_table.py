@@ -21,15 +21,6 @@ class HashTable:
 		self.__keys = {}
 		self.__array = [0 for x in range(self.__size)]
 
-	def invertedIndex(self, words):
-        keyLists = list(words.keys())
-        keyLists.sort(key=lambda x: x[:aux.C])
-    
-        for word in keyLists:
-            position = self.__keys[word]
-            value = self.__array[position].search(word)
-            print(value.getItem())
-
 	def insert(self, data):
 		key = self.hash(data)
 
@@ -42,14 +33,19 @@ class HashTable:
 		return self.__array
 
 	def hash(self, data):
-		return data % self.__size
+		cont = 0
+		for i in range(0, len(data)):
+			cont += ord(data[i])
+			i += 1		
+
+		return int(cont/len(data)) % self.__size
 
 
 heshi = HashTable(10)
 
-heshi.insert(9)
-heshi.insert(14)
-heshi.insert(15)
+heshi.insert("pao")
+heshi.insert("queijo")
+heshi.insert("presunto")
 
 print(heshi.getArray())
 
