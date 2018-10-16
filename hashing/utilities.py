@@ -2,6 +2,7 @@ import word as wd
 import unidecode as un
 import re
 import red_black_tree as rbt
+import hash_table as ht
 
 
 C = 4
@@ -29,6 +30,16 @@ def loadRedBlackTree(words):
         tree.insert(word, compWords)
 
     return tree
+
+def loadHashTable(words):
+    hashSize = int(input("Insert the size of the hash: "))
+
+    hesh = ht.HashTable(hashSize)
+
+    for key, word in words.items():
+        hesh.insert(word, key)
+
+    return hesh
 
 def loadWords(files):
     global C

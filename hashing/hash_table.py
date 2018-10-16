@@ -32,7 +32,10 @@ class HashTable:
 
 		value = HashElm(data, item)
 
-		self.__array[key] = value.getVal(), value.getItem()
+		self.__array[key] = value
+
+	def getKeys(self):
+		return self.__keys
 
 	def invertedIndex(self, words):
 		keyLists = list(words.keys())
@@ -41,7 +44,7 @@ class HashTable:
 		for word in keyLists:
 			position = self.__keys[word]
 			value = self.__array[position]
-			print(value.getItem())
+			print(value.getVal())
 
 	def getArray(self):
 		return self.__array
@@ -49,22 +52,19 @@ class HashTable:
 	def hash(self, data, iteration):
 		int_value = 0
 
-		for i in range(0, len(data)):
-			int_value += ord(data[i])
+		word = data.getVal()
+
+		for i in range(0, data.getValueLenght()):
+			int_value += ord(word[i])
 			i += 1		
 
-		return int(int_value/len(data) + iteration) % self.__size
+		h = int(int_value/data.getValueLenght() + iteration) % self.__size
+
+		self.__keys[word] = h
+
+		return h
 
 
-heshi = HashTable(10)
-
-heshi.insert("arroz", 1)
-heshi.insert("feijao", 2)
-heshi.insert("salada", 1)
-heshi.insert("frango", 2)
-heshi.insert("sobremesa", 1)
-
-print(heshi.getArray())
 
 
 
