@@ -1,4 +1,4 @@
-import utilities
+import utilities as ut
 import word as wd
 import random
 
@@ -21,31 +21,48 @@ class HashTable:
 		self.__keys = {}
 		self.__array = [0 for x in range(self.__size)]
 
-	def insert(self, data):
-		key = self.hash(data)
+	def insert(self, data, item):
+		i = 0
+
+		key = self.hash(data, i)
 
 		while self.__array[key] != 0:
-			key = self.hash(data + 1)
+			i += 1
+			key = self.hash(data, i)
 
-		self.__array[key] = data
+		value = HashElm(data, item)
+
+		self.__array[key] = value.getVal(), value.getItem()
+
+	def invertedIndex(self, words):
+		keyLists = list(words.keys())
+		keyLists.sort(key=lambda x: x[:ut.C])
+
+		for word in keyLists:
+			position = self.__keys[word]
+			value = self.__array[position]
+			print(value.getItem())
 
 	def getArray(self):
 		return self.__array
 
-	def hash(self, data):
-		cont = 0
+	def hash(self, data, iteration):
+		int_value = 0
+
 		for i in range(0, len(data)):
-			cont += ord(data[i])
+			int_value += ord(data[i])
 			i += 1		
 
-		return int(cont/len(data)) % self.__size
+		return int(int_value/len(data) + iteration) % self.__size
 
 
 heshi = HashTable(10)
 
-heshi.insert("pao")
-heshi.insert("queijo")
-heshi.insert("presunto")
+heshi.insert("arroz", 1)
+heshi.insert("feijao", 2)
+heshi.insert("salada", 1)
+heshi.insert("frango", 2)
+heshi.insert("sobremesa", 1)
 
 print(heshi.getArray())
 
