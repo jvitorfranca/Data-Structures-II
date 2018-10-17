@@ -23,6 +23,9 @@ class Word:
 	def getVal(self):
 		return self.__word
 
+	def getValueLenght(self):
+		return len(self.__word)
+
 	def getOccurs(self):
 		return self.__occurs
 
