@@ -1,6 +1,7 @@
 import utilities as ut
 import word as wd
 import random
+import math
 
 class HashElm:
 	def __init__(self, key, item):
@@ -21,21 +22,34 @@ class HashTable:
 		self.__keys = {}
 		self.__array = [0 for x in range(self.__size)]
 
-	def insert(self, data, item):
-		i = 0
-
-		key = self.hash(data, i)
-
-		while self.__array[key] != 0:
-			i += 1
-			key = self.hash(data, i)
-
-		value = HashElm(data, item)
-
-		self.__array[key] = value
-
 	def getKeys(self):
 		return self.__keys
+
+	def getArray(self):
+		return self.__array
+
+	def insert(self, data, item, option):
+		i = 0
+
+		if option == 'linear':
+
+			key = self.hash(data, i, 'linear')
+
+			while self.__array[key] != 0:
+				i += 1
+				key = self.hash(data, i, 'linear')
+
+		elif option == 'quadratic':
+
+			key = self.hash(data, i, 'quadratic')
+
+			while self.__array[key] != 0:
+				i += 1
+				key = self.hash(data, i, 'quadratic')
+
+		value = HashElm(data, item)
+		
+		self.__array[key] = value
 
 	def invertedIndex(self, words):
 		keyLists = list(words.keys())
@@ -46,25 +60,36 @@ class HashTable:
 			value = self.__array[position]
 			print(value.getVal())
 
-	def getArray(self):
-		return self.__array
-
-	def hash(self, data, iteration):
+	def hash(self, data, iteration, option):
 		int_value = 0
 
 		word = data.getVal()
+		lenght = data.getValueLenght()
 
-		for i in range(0, data.getValueLenght()):
+		for i in range(0, lenght):
 			int_value += ord(word[i])
-			i += 1		
+			i += 1
 
-		h = int(int_value/data.getValueLenght() + iteration) % self.__size
+		A = (math.sqrt(5) - 1)/2
+
+		k = int(int_value/lenght)
+
+		if option == 'linear':
+
+			# Division method
+			h = (k + iteration) % self.__size
+
+			# Multiplication method
+			# h = math.floor(self.__size*(((k + iteration)*A)%1))
+
+		elif option == 'quadratic':
+
+			# Division method
+			h = (k + iteration**2) % self.__size
+
+			# Multiplication method
+			# h = math.floor(self.__size*(((k + iteration**2)*A)%1))
 
 		self.__keys[word] = h
 
 		return h
-
-
-
-
-

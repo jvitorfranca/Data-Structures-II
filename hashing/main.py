@@ -6,18 +6,33 @@ import utilities as ut
 
 def main(argv):
 
-	words = ut.loadWords(argv[1:])
+	option = int(input("1. RedBlack Tree\n2. Linear Probing\n3. Quadratic Probing\n"))
 
-	choice = int(input("1. RedBlack Tree \n2. Linear Probing\n"))
+	execution_time = 0
 
-	if choice == 1:
+	if option == 1:
+		start_time = time.time()
+		words = ut.loadWords(argv[1:])
 		tad = ut.loadRedBlackTree(words)
 		tad.invertedIndex()
-	elif choice == 2:
-		tad = ut.loadHashTable(words)
+		execution_time = time.time() - start_time
+		print("Tempo de execução ", "%5f" % execution_time)
+	elif option == 2:
+		start_time = time.time()
+		words = ut.loadWords(argv[1:])
+		tad = ut.loadHashTable(words, 'linear')
 		tad.invertedIndex(words)
+		execution_time = time.time() - start_time
+		print("Tempo de execução ", "%5f" % execution_time)
+	elif option == 3:
+		start_time = time.time()
+		words = ut.loadWords(argv[1:])
+		tad = ut.loadHashTable(words, 'quadratic')
+		tad.invertedIndex(words)
+		execution_time = time.time() - start_time
+		print("Tempo de execução ", "%5f" % execution_time)
 	else:
-		print("Invalid argument")
+		print("Error")
 		sys.exit(2)
 
 if __name__ == "__main__":

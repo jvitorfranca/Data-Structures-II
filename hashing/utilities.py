@@ -31,13 +31,17 @@ def loadRedBlackTree(words):
 
     return tree
 
-def loadHashTable(words):
+def loadHashTable(words, option):
     hashSize = int(input("Insert the size of the hash: "))
 
     hesh = ht.HashTable(hashSize)
 
-    for key, word in words.items():
-        hesh.insert(word, key)
+    if option == 'linear':
+        for key, word in words.items():
+            hesh.insert(word, key, 'linear')
+    elif option == 'quadratic':
+        for key, word in words.items():
+            hesh.insert(word, key, 'quadratic')
 
     return hesh
 
