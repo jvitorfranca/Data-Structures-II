@@ -9,6 +9,7 @@ import hash_table as ht
 C = 4
 dTerms = {}
 
+# Function to compare two integers
 def comp(x, y):
     if x > y:
         return 1
@@ -16,6 +17,7 @@ def comp(x, y):
         return -1
     return 0
     
+# Function to compare two words, given the parameter C
 def compWords(x, y):
     global C
     if x[0:C] > y[0:C]:
@@ -24,19 +26,23 @@ def compWords(x, y):
         return -1
     return 0
 
+# Calling RedBlack class given the inputs
 def loadRedBlackTree(words):
     tree = rbt.RedBlackTree()
 
+    # Inserting the words in the ADT
     for key, word in words.items():
         tree.insert(word, compWords)
 
     return tree
 
+# Calling HashTable class given the inputs
 def loadHashTable(words, option):
     hashSize = int(input("Insert the size of the hash: "))
 
     hesh = ht.HashTable(hashSize)
 
+    # Inserting differentely depending on the parameter
     if option == 'linear':
         for key, word in words.items():
             hesh.insert(word, key, 'linear')
@@ -46,21 +52,26 @@ def loadHashTable(words, option):
 
     return hesh
 
+# Putting the inputs into a instance 'word'
 def loadWords(files):
     global C
     global dTerms
-    C = int(input("Digite o valor do parâmetro C: "))
+    C = int(input("Insert the value of C: "))
 
     print(files)
 
     words = {}
     i = 1
     for fil in files:
+
+        # Reading the files
         f = open(fil, "r")
         dTerms[fil] = 0
         fileWords = {}
         for line in f:
+            # Eliminating non valid characters
             for word in re.split('; |, |\*|\n|;|!|\?|\.|\t| ', line):
+                # Checking if the word's smaller than the parameter C
                 if len(word) < C:
                     continue
                 theWord = un.unidecode(word.lower())
@@ -75,21 +86,25 @@ def loadWords(files):
     
     return words
 
+# Function to calculate the Inverse Document Frequency
 def IDF(files, tad, tadStr):
     global dTerms
     N = len(files)
     L = 0.05
     
-    strtermos = str(input("Insira os termos da consulta: "))
+    # Words wanted to search
+    strtermos = str(input("Insert the words you want to search: "))
     termos = strtermos.split()
 
     i = 0
     weights = []
     for termo in termos:
+        # Checking which ADT were choosen and searching
         if tadStr == "hash":
             word = tad[termo]
         else:
             word = tad.search(termo, compWords)
+        # Calculating the weight
         fN = 1
         weights.append([])
         if word is None:
@@ -99,6 +114,7 @@ def IDF(files, tad, tadStr):
             continue
         dj = 0
         dj = word.getQFilesWOccurs(termo)
+        # Calculating the relevance
         for fil in files:
             f = word.getOccursFile(fN)
             weights[i].append(f * (math.log(N, 2)/dj))

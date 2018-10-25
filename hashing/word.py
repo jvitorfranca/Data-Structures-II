@@ -1,3 +1,4 @@
+# Class to deal with the word-file pair
 class FilesOccur:
 	def __init__(self, fileId, occur=0):
 		self.occur = occur
@@ -12,6 +13,7 @@ class FilesOccur:
 	def incrementOccur(self):
 		self.occur = self.occur + 1
 
+# Class to deal with the words properly
 class Word:
 	def __init__(self, word, qntdFiles=1):
 		self.__word = word

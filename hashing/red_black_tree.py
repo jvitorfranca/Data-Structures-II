@@ -129,6 +129,7 @@ class RedBlackTree:
 
         self.fixInsertion(newnode)
 
+    # Function to recursively get the height
     def __height(self, node):
         if node is None:
             return -1
