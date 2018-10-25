@@ -22,6 +22,15 @@ class HashTable:
 		self.__keys = {}
 		self.__array = [0 for x in range(self.__size)]
 
+	def __getitem__(self, key):
+		if key not in self.__keys:
+			return None
+		position = self.__keys[key]
+		elm = self.__array[position]
+		if elm is not None:
+			return elm.getVal()
+		return None
+
 	def getKeys(self):
 		return self.__keys
 

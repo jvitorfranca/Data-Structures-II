@@ -157,7 +157,7 @@ class RedBlackTree:
         aux = self.__root
         while aux is not None:
             if comp(aux.value.getVal(), key) == 0:
-                return aux.value, aux.color
+                return aux.value
             if comp(aux.value.getVal(), key) == 1:
                 aux = aux.left
             else:

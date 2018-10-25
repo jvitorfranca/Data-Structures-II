@@ -35,5 +35,16 @@ def main(argv):
 		print("Error")
 		sys.exit(2)
 
+	while True:
+		option = int(input("1. IDF\n2. Sair\n"))
+
+		if option == 2:
+			sys.exit()
+		elif option == 1:
+			start_time = time.time()
+			ut.IDF(argv[1:], tad, "hash")
+			execution_time = time.time() - start_time
+			print("Tempo para IDF: ", "%5f" % execution_time)
+
 if __name__ == "__main__":
 	main(sys.argv)
