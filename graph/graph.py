@@ -61,6 +61,36 @@ class Graph:
 
         return dist
 
+    def dfs(self):
+        color = {}
+        pred = {}
+
+        for vertex in self.__graph_dict:
+            color[vertex] = 'WHITE'
+            pred[vertex] = None
+
+        time = 0
+
+        for vertex in self.__graph_dict:
+            if color[vertex] == 'WHITE':
+                time, color = self.__dfs_visit(vertex, time, color, pred)
+
+        return color, time
+
+    def __dfs_visit(self, vertex, time, color, pred):
+
+        time = time + 1
+        color[vertex] = 'GRAY'
+
+        for v in self.__graph_dict[vertex]:
+            if color[v] == 'WHITE':
+                pred[v] = vertex
+                self.__dfs_visit(v, time, color, pred)
+
+        color[vertex] = 'BLACK'
+        time = time + 1
+
+        return time, color
 
     def __str__(self):
         res = "vertices: "
@@ -74,28 +104,33 @@ class Graph:
 
 if __name__ == "__main__":
 
-    # g = { "a" : ["d"],
-    #   "b" : ["c"],
-    #   "c" : ["b", "c", "d", "e"],
-    #   "d" : ["a", "c"],
-    #   "e" : ["c"],
-    #   "f" : []
-    # }
+    g = { "a" : ["d"],
+      "b" : ["c"],
+      "c" : ["b", "c", "d", "e"],
+      "d" : ["a", "c"],
+      "e" : ["c"],
+      "f" : []
+    }
 
-    graph = Graph()
+    graph = Graph(g)
 
-    graph.add_vertex('A')
-    graph.add_vertex('B')
-    graph.add_vertex('C')
-    graph.add_vertex('D')
-    graph.add_vertex('E')
-
-    graph.add_edge('A', 'B')
-    graph.add_edge('A', 'D')
-    graph.add_edge('B', 'C')
-    graph.add_edge('B', 'E')
-    graph.add_edge('C', 'D')
-    graph.add_edge('D', 'E')
+    # graph.add_vertex('A')
+    # graph.add_vertex('B')
+    # graph.add_vertex('C')
+    # graph.add_vertex('D')
+    # graph.add_vertex('E')
+    #
+    # graph.add_edge('A', 'D')
+    # graph.add_edge('B', 'C')
+    # graph.add_edge('C', 'B')
+    # graph.add_edge('C', 'C')
+    # graph.add_edge('C', 'D')
+    # graph.add_edge('C', 'E')
+    # graph.add_edge('D', 'A')
+    # graph.add_edge('D', 'C')
 
     print('BFS:')
-    print(graph.bfs('A'))
+    print(graph.bfs('a'))
+
+    print('DFS:')
+    print(graph.dfs())
