@@ -83,6 +83,23 @@ class Graph:
 
         return dist
 
+    def dfs(self, start):
+        stack, path = [start], []
+
+        while stack:
+            vertex = stack.pop()
+
+            if vertex in path:
+                continue
+            path.append(vertex)
+
+            x = self.get_vertex(vertex)
+
+            for neighbor in x.get_adj():
+                stack.append(neighbor.id)
+
+        return path
+
     def dfs_time(self):
         color = {}
         pred = {}
@@ -147,7 +164,7 @@ if __name__ == '__main__':
     print(g.bfs('a'))
 
     print("DFS: ")
-    print(g.dfs_time())
+    print(g.dfs('a'))
 
     # for v in g:
     #     for w in v.get_connections():
