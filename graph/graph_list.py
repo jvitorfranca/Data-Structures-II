@@ -83,6 +83,45 @@ class Graph:
 
         return dist
 
+    def dfs_time(self):
+        color = {}
+        pred = {}
+        d = {}
+        f = {}
+
+        for vertex in self.__vert_dict:
+            color[vertex] = 'WHITE'
+            pred[vertex] = None
+
+        time = 0
+
+        for vertex in self.__vert_dict:
+            if color[vertex] == 'WHITE':
+                time, color = self.__dfs_visit(vertex, time, color, pred, d, f)
+
+        return color, time
+
+    def __dfs_visit(self, vertex, time, color, pred, d, f):
+
+        time = time + 1
+        color[vertex] = 'GRAY'
+        d[vertex] = time
+
+        x = self.get_vertex(vertex)
+
+        for v in x.get_adj():
+            if color[v.id] == 'WHITE':
+                pred[v.id] = vertex
+                self.__dfs_visit(v.id,  time, color, pred, d, f)
+
+        color[vertex] = 'BLACK'
+        time = time + 1
+        f[vertex] = time
+
+        # print(d[vertex], f[vertex])
+
+        return time, color
+
 if __name__ == '__main__':
 
     g = Graph()
@@ -106,6 +145,9 @@ if __name__ == '__main__':
 
     print("BFS: ")
     print(g.bfs('a'))
+
+    print("DFS: ")
+    print(g.dfs_time())
 
     # for v in g:
     #     for w in v.get_connections():
