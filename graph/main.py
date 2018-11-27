@@ -10,9 +10,6 @@ def main(argv):
     else:
         file_name = argv[1:].pop()
 
-        print("File name: ")
-        print(file_name + "\n")
-
         with(open(file_name)) as f:
             lines = f.readlines()
 
@@ -24,20 +21,39 @@ def main(argv):
                 weight = lines[i].rstrip("\n").split(" ").pop(2)
                 g.add_edge(int(vertex1), int(vertex2), int(weight))
 
+        while True:
 
-        print("BFS: ")
-        print(g.bfs(0))
+            option = int(input("\n1.BFS\n2.DFS\n3.Dijkstra\nPress other to exit\n"))
 
-        print("DFS: ")
-        print(g.dfs(0))
+            if option == 1:
 
-        print("Dijkstra: ")
-        graph.dijkstra(g, g.get_vertex(0), g.get_vertex(13))
+                vertex = int(input("Insert the vertex you want to start\n"))
 
-        target = g.get_vertex(13)
-        path = [target.get_id()]
-        graph.shortest(target, path)
-        print('The shortest path : %s' %(path[::-1]))
+                print("\nBFS: ")
+                print(g.bfs(vertex))
+
+            elif option == 2:
+
+                vertex = int(input("Insert the vertex you want to start\n"))
+
+                print("\nDFS: ")
+                print(g.dfs(vertex))
+
+            elif option == 3:
+
+                frm = int(input("Insert the vertex you want to start\n"))
+                to = int(input("Insert the vertex you want to get\n"))
+
+                print("\nDijkstra: ")
+                graph.dijkstra(g, g.get_vertex(frm), g.get_vertex(to))
+
+                target = g.get_vertex(to)
+                path = [target.get_id()]
+                graph.shortest(target, path)
+                print('The shortest path : %s' %(path[::-1]))
+
+            else:
+                break
 
 if __name__ == "__main__":
     main(sys.argv)
