@@ -1,5 +1,4 @@
 import sys
-import heapq
 
 
 class Vertex:
@@ -67,7 +66,7 @@ class Graph:
             self.add_vertex(to)
 
         self.__vert_dict[frm].add_neighbor(self.__vert_dict[to], cost)
-        # self.__vert_dict[to].add_neighbor(self.__vert_dict[frm], cost)
+        self.__vert_dict[to].add_neighbor(self.__vert_dict[frm], cost)
 
     def get_vertices(self):
         return self.__vert_dict.keys()
@@ -90,7 +89,6 @@ class Graph:
 
         while queue:
             vertex = queue.pop(0)
-            print(vertex)
             x = self.get_vertex(vertex)
             for i in x.get_adj():
                 if color[i.id] == 'WHITE':
@@ -243,3 +241,9 @@ if __name__ == '__main__':
     path = [target.get_id()]
     shortest(target, path)
     print('The shortest path : %s' %(path[::-1]))
+
+    # for v in g:
+    #     for w in v.get_connections():
+    #         vid = v.get_id()
+    #         wid = w.get_id()
+    #         print('(%s, %s, %d)'%(vid, wid, v.get_weight(w)))
